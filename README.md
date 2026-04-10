@@ -8,5 +8,5 @@ I will try to keep the packages backwards compatible, but I make no guarantees,
 nor will I strictly follow semantic versioning.
 
 ```
-go get go.skymeyer.dev/pkg@v1.0.1
+go get go.skymeyer.dev/pkg@latest
 ```
