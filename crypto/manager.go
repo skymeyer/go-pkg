@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -15,7 +16,6 @@ import (
 	"github.com/google/tink/go/aead"
 	"github.com/google/tink/go/insecurecleartextkeyset"
 	"github.com/google/tink/go/keyset"
-	"github.com/rs/zerolog/log"
 )
 
 var (
@@ -210,10 +210,10 @@ func (m *Manager) Close() error {
 func (m *Manager) addDEKToCache(name string, kh *keyset.Handle) error {
 	b, err := KeyHandleToBytes(kh)
 	if err != nil {
-		log.Error().Err(err).Str("name", name).Msg("failed to encode dek")
+		slog.Error("failed to encode dek", "error", err, "name", name)
 		return fmt.Errorf("failed to encode dek: %w", err)
 	}
-	log.Debug().Str("name", name).Msg("cache add")
+	slog.Debug("cache add", "name", name)
 	m.cache.Set(name, b)
 	return nil
 }
@@ -221,11 +221,11 @@ func (m *Manager) addDEKToCache(name string, kh *keyset.Handle) error {
 func (m *Manager) getDEKFromCache(name string) (*keyset.Handle, error) {
 	b, ok := m.cache.Get(name)
 	if !ok {
-		log.Debug().Str("name", name).Msg("cache miss")
+		slog.Debug("cache miss", "name", name)
 		return nil, fmt.Errorf("dek not found in cache")
 	}
 
-	log.Debug().Str("name", name).Msg("cache hit")
+	slog.Debug("cache hit", "name", name)
 	return BytesToKeyHandle(b)
 }
 
@@ -255,7 +255,7 @@ func (m *Manager) refreshDEK(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	log.Debug().Str("key", kh.String()).Msg("active dek")
+	slog.DebugContext(ctx, "active dek", "key", kh.String())
 	m.dekPlain = kh
 
 	m.addDEKToCache(m.dekVersion, kh)

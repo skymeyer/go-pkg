@@ -7,7 +7,6 @@ require (
 	cloud.google.com/go/secretmanager v1.16.0
 	github.com/Code-Hex/go-generics-cache v1.5.1
 	github.com/google/tink/go v1.7.0
-	github.com/rs/zerolog v1.35.0
 	github.com/thomaspoignant/go-feature-flag v1.52.0
 	github.com/thomaspoignant/go-feature-flag/modules/core v0.6.1
 	gocloud.dev v0.45.0
@@ -46,8 +45,6 @@ require (
 	github.com/google/wire v0.7.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.14 // indirect
 	github.com/googleapis/gax-go/v2 v2.17.0 // indirect
-	github.com/mattn/go-colorable v0.1.14 // indirect
-	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/nikunjy/rules v1.5.0 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10 // indirect
 	github.com/spiffe/go-spiffe/v2 v2.6.0 // indirect
